@@ -123,7 +123,7 @@ CIrrDeviceSDL::CIrrDeviceSDL(const SIrrlichtCreationParameters& param)
 		if (CreationParams.DriverType != video::EDT_NULL)
 			flags |= SDL_INIT_VIDEO;
 #if defined(_IRR_COMPILE_WITH_JOYSTICK_EVENTS_)
-		flags |= SDL_INIT_JOYSTICK;
+		flags |= SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER;
 #endif
 		if (SDL_Init(flags) < 0)
 		{
@@ -689,6 +689,7 @@ bool CIrrDeviceSDL::run()
 
 	// update joystick states manually
 	SDL_JoystickUpdate();
+	SDL_GameControllerUpdate();
 	// we'll always send joystick input events...
 	SEvent joyevent;
 	joyevent.EventType = EET_JOYSTICK_INPUT_EVENT;
@@ -1200,4 +1201,3 @@ void CIrrDeviceSDL::createKeyMap()
 } // end namespace irr
 
 #endif // _IRR_COMPILE_WITH_SDL_DEVICE_
-
